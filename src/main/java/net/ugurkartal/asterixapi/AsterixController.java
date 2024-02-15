@@ -21,4 +21,15 @@ public class AsterixController {
     public Character addCharacter(@RequestBody Character character) {
         return this.asterixRepository.save(character);
     }
+
+    @PutMapping("/update")
+    public Character updateCharacter(@RequestBody Character character){
+        return this.asterixRepository.save(character);
+    }
+
+    @DeleteMapping("/delete")
+    public String deleteById(@RequestParam String id){
+        this.asterixRepository.deleteById(id);
+        return "Deleted: " + id;
+    }
 }
