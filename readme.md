@@ -50,3 +50,19 @@ If you make a change to a character in AtlasDB (via Compass), you should be able
 
 Extend the AsterixController to also support POST, PUT, and DELETE.
 
+## Bonus: Swagger SpringDoc
+
+Add this dependency to your project:
+
+```xml
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.2.0</version>
+		</dependency>
+```
+
+After restarting the Spring Boot application, navigate to http://localhost:8080/swagger-ui/index.html
+
+You should now see documentation of your API.
+
