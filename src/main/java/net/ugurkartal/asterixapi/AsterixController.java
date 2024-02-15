@@ -13,8 +13,13 @@ public class AsterixController {
     private final AsterixRepository asterixRepository;
 
     @GetMapping
-    public List<Character> getCharacters() {
+    public List<Character> getAllCharacters() {
         return this.asterixRepository.findAll();
+    }
+
+    @GetMapping("/{name}")
+    public List<Character> getCharacterByName(@PathVariable String name){
+        return this.asterixRepository.findByName(name);
     }
 
     @PostMapping("/add")
