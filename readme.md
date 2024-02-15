@@ -66,3 +66,14 @@ After restarting the Spring Boot application, navigate to http://localhost:8080/
 
 You should now see documentation of your API.
 
+## Bonus: Custom Queries
+
+Add another endpoint that returns the average age of the characters of a profession using a custom query.
+
+## Bonus: Villages, Pets, Weapons
+
+Consider creating a more detailed API for the Asterix universe.
+
+Implement the API using Spring Boot and Spring Data.
+
+Pay attention to the REST conventions (RFC documentation!).

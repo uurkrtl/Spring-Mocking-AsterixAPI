@@ -1,6 +1,9 @@
 package net.ugurkartal.asterixapi;
 
 import lombok.RequiredArgsConstructor;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
+
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +23,11 @@ public class AsterixController {
     @GetMapping("/{name}")
     public List<Character> getCharacterByName(@PathVariable String name){
         return this.asterixRepository.findByName(name);
+    }
+
+    @GetMapping("/getAverageAge")
+    public double getAverageAge(){
+        return this.asterixRepository.findAll().stream().mapToDouble(Character::age).average().orElse(0);
     }
 
     @PostMapping("/add")
