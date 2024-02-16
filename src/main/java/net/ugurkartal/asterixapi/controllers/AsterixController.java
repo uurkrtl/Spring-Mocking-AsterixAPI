@@ -3,6 +3,7 @@ package net.ugurkartal.asterixapi.controllers;
 import lombok.RequiredArgsConstructor;
 
 import net.ugurkartal.asterixapi.models.dtos.CharacterDto;
+import net.ugurkartal.asterixapi.models.dtos.CharacterUpdateRequest;
 import net.ugurkartal.asterixapi.repositories.AsterixRepository;
 import net.ugurkartal.asterixapi.models.Character;
 import net.ugurkartal.asterixapi.services.AsterixService;
@@ -43,8 +44,8 @@ public class AsterixController {
     }
 
     @PutMapping("/update")
-    public Character updateCharacter(@RequestBody Character character){
-        return this.asterixService.update(character);
+    public Character updateCharacter(@RequestParam String id, @RequestBody CharacterUpdateRequest characterUpdateRequest){
+        return this.asterixService.update(id, characterUpdateRequest);
     }
 
     @DeleteMapping("/delete")

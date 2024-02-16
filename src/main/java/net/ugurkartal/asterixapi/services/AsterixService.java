@@ -3,6 +3,7 @@ package net.ugurkartal.asterixapi.services;
 import lombok.RequiredArgsConstructor;
 import net.ugurkartal.asterixapi.models.Character;
 import net.ugurkartal.asterixapi.models.dtos.CharacterDto;
+import net.ugurkartal.asterixapi.models.dtos.CharacterUpdateRequest;
 import net.ugurkartal.asterixapi.repositories.AsterixRepository;
 import org.springframework.stereotype.Service;
 
@@ -33,8 +34,9 @@ public class AsterixService {
         return repository.save(character);
     }
 
-    public Character update (Character character){
-        return repository.save(character);
+    public Character update (String id, CharacterUpdateRequest characterUpdateRequest){
+        Character updatedCharacter = Character.builder().id(id).name(characterUpdateRequest.getName()).age(characterUpdateRequest.getAge()).profession(characterUpdateRequest.getProfession()).build();
+        return repository.save(updatedCharacter);
     }
 
     public String deleteById (String id){
