@@ -1,53 +1,42 @@
-## Coding: Spring Service (Layered Structure)
+## Coding: Mocking in Unit Tests
 
-The task refers to the Asterix task you did last.
+In this task, you will apply what you have learned to write unit tests for a service.
 
-* Step 1: Add a Service layer to the task you last completed.
+* Create unit tests for the
+    * `findAllCharacters` method,
+    * `findById` method,
+    * `updateCharacter` method,
+    * `deleteCharacter` method
+      of the CharacterService. Use Mockito to mock the dependency on the CharacterRepository.
 
-## Coding: CRUD
+## Coding: Id Generation
 
-If you didn't get to the bonus task yesterday, then...
+* Create an `IdService` class where you provide a method to generate a random id.
+* Use this class in the CharacterService to generate the id for a new procharacterduct. (Use dependency injection)
+* Create a unit test for the `addCharacter` method in the CharacterService, also mock the IdService.
 
-* Implement an endpoint in the AsterixController that creates a character.
+## Bonus: Strict Tests
 
-## Coding: DTO
+* In each unit test, check that the method of your mock was called only once and no other methods were called.
 
-* Create a DTO for the POST endpoint so that the client cannot specify an Id for the new character.
-* And generate a random Id for the character.
+## Bonus: Static Mocking
 
-## Bonus: CRUD
+Create a unit test for the `IdService` class.
 
-If you didn't manage to do it yesterday, ...
+* Research how to mock the static method call `UUID.randomUUID()`.
 
-```markdown
-* implement a endpoint in the AsterixController that returns a Character based on its id.
-* implement a endpoint in the AsterixController that deletes a Character based on its id.
-* implement a endpoint in the AsterixController that updates a Character based on its id.
-```
-## Bonus: Services
+## Bonus: Date/ArgumentCaptor
 
-Advanced IdService
+* Extend your Character class to include the creation timestamp.
+* Use the `addCharacter` method in the CharacterService to determine and store the current timestamp of creation.
+* Modify your unit test and check that the creation timestamp is after January 1, 2020, and before 9 PM. Use the ArgumentCaptor from Mockito [Link](https://www.baeldung.com/mockito-argumentcaptor)
 
-* Create an IdService class with a method `public String randomId()`. This method should use the UUID class to generate a random id.
-* Use dependency injection in the AsterixService to inject the IdService class and generate an id when creating new characters.
+## Bonus: Random Character
 
-## Bonus: Query
+* Create a method `public void setSeed(long seed)` in the CharacterService.
+* Create a method `getRandomCharacter` in the CharacterService that uses a seed to return a random pharacter.
+* Write a unit test for this method, set the seed to a fixed value so that the same pharacter is selected every time.
 
-If not done yesterday, follow the following steps in order:
+## Bonus: Without Mockito
 
-* Step 1: Add a query parameter `age` to your getAllCharacter endpoint.
-* Step 2: Filter all characters that have a maximum age based on this parameter. (First load all characters from the database and use familiar Java methods for filtering)
-* Step 3: Look at Generated Query Methods and use them to directly load the filtered characters from the database. (Only read section 3)
-
-
-## Bonus: DTO
-
-* Create a DTO for the PUT endpoint so that the client cannot change the Id of an existing character.
-
-## Bonus: Villages, Pets, Weapons
-
-Consider creating a more detailed API for the Asterix universe.
-
-Implement the API using Spring Boot and Spring Data.
-
-Pay attention to the REST conventions (RFC documentation!).
+* Write all your tests without Mockito.
