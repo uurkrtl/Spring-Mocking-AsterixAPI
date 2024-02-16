@@ -30,6 +30,7 @@ class AsterixServiceTest {
 
         // THEN
         assertEquals(expected, actual);
+        verify(mockAsterixRepository, times(1)).findAll();
     }
 
     @Test
@@ -43,6 +44,7 @@ class AsterixServiceTest {
 
         // THEN
         assertEquals(expected, actual);
+        verify(mockAsterixRepository, times(1)).findById("1");
     }
 
     @Test
@@ -57,6 +59,7 @@ class AsterixServiceTest {
 
         // THEN
         assertEquals(expected, actual);
+        verify(mockAsterixRepository, times(1)).save(expected);
     }
 
     @Test
@@ -86,5 +89,6 @@ class AsterixServiceTest {
 
         // THEN
         assertEquals(expected, actual);
+        verify(mockAsterixRepository, times(1)).save(expected);
     }
 }
