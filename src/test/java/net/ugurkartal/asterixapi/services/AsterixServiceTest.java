@@ -18,7 +18,7 @@ import static org.mockito.Mockito.*;
 class AsterixServiceTest {
     private final AsterixRepository mockAsterixRepository = mock(AsterixRepository.class);
     private final IdService mockIdService = mock(IdService.class);
-    AsterixService service = new AsterixService(mockAsterixRepository, mockIdService);
+    private final AsterixService service = new AsterixService(mockAsterixRepository, mockIdService);
 
     @Test
     void getAllCharactersReturnsExpectedList() {
@@ -73,7 +73,6 @@ class AsterixServiceTest {
     void deleteCharacterByIdReturnsDeletedId() {
         // GIVEN
         String expected = "Deleted: 1";
-        //when(mockAsterixRepository.deleteById("1")).thenReturn(null);
 
         // WHEN
         String actual = service.deleteById("1");
@@ -84,13 +83,13 @@ class AsterixServiceTest {
     }
 
     @Test
-    void addCharacterReturnsNewCharacter() {
+    void addCharacterReturnsCreatedTime() {
         // GIVEN
-        Instant createdAt = Instant.now();
-        Character expected = new Character("1", "Asterix", 35, "Warrior", createdAt);
+        //Instant createdAt = Instant.now();
+        Character expected = new Character("1", "Asterix", 35, "Warrior", Instant.now());
         CharacterDto characterDto = new CharacterDto("Asterix", 35, "Warrior");
         when(mockIdService.randomId()).thenReturn("1");
-        when(mockAsterixRepository.save(expected)).thenReturn(expected);
+        when(mockAsterixRepository.save(any(Character.class))).thenReturn(expected);
 
         // WHEN
         Character actual = service.add(characterDto);
@@ -98,6 +97,22 @@ class AsterixServiceTest {
         // THEN
         Instant january1st2020 = LocalDateTime.of(2020, 1, 1, 0, 0).atZone(ZoneId.systemDefault()).toInstant();
         Instant ninePM = LocalDateTime.now().withHour(21).atZone(ZoneId.systemDefault()).toInstant();
-        assertTrue(createdAt.isAfter(january1st2020) && createdAt.isBefore(ninePM));
+        assertTrue(actual.createdAt().isAfter(january1st2020) && actual.createdAt().isBefore(ninePM));
+    }
+
+    @Test
+    void addCharacterReturnsNewCharacter() {
+        // GIVEN
+        Character expected = new Character("3", "Asterix", 35, "Warrior", Instant.now());
+        CharacterDto characterDto = new CharacterDto("Asterix", 35, "Warrior");
+        when(mockIdService.randomId()).thenReturn("3");
+        when(mockAsterixRepository.save(any(Character.class))).thenReturn(expected);
+
+        // WHEN
+        Character actual = service.add(characterDto);
+
+        // THEN
+        assertEquals(expected, actual);
+        verify(mockAsterixRepository, times(1)).save(any(Character.class));
     }
 }
