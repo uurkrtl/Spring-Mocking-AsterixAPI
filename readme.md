@@ -1,74 +1,48 @@
-## Setup: Github Project
+## Coding: Spring Service (Layered Structure)
 
-Create a new Spring Boot project together for an "Asterix API" in IntelliJ with the dependencies Spring Data Mongo and Spring Web.
+The task refers to the Asterix task you did last.
 
-What is the URL to the Github repository?
-`inputfield`
+* Step 1: Add a Service layer to the task you last completed.
 
-## Coding: Recap: REST Controller "GET"
+## Coding: CRUD
 
-Define a character record with the fields id, name, age, profession.
+If you didn't get to the bonus task yesterday, then...
 
-Build an AsterixController that returns this list at the endpoint `GET /asterix/characters`:
+* Implement an endpoint in the AsterixController that creates a character.
 
-```java
-return List.of(
-        new Character("1", "Asterix", 35, "Krieger"),
-        new Character("2", "Obelix", 35, "Lieferant"),
-        new Character("3", "Miraculix", 60, "Druide"),
-        new Character("4", "Majestix", 60, "Häuptling"),
-        new Character("5", "Troubadix", 25, "Barden"),
-        new Character("6", "Gutemine", 35, "Häuptlingsfrau"),
-        new Character("7", "Idefix", 5, "Hund"),
-        new Character("8", "Geriatrix", 70, "Rentner"),
-        new Character("9", "Automatix", 35, "Schmied"),
-        new Character("10", "Grockelix", 35, "Fischer")
-);
+## Coding: DTO
+
+* Create a DTO for the POST endpoint so that the client cannot specify an Id for the new character.
+* And generate a random Id for the character.
+
+## Bonus: CRUD
+
+If you didn't manage to do it yesterday, ...
+
+```markdown
+* implement a endpoint in the AsterixController that returns a Character based on its id.
+* implement a endpoint in the AsterixController that deletes a Character based on its id.
+* implement a endpoint in the AsterixController that updates a Character based on its id.
 ```
+## Bonus: Services
 
-Call the endpoint with Postman. You should see the list of characters.
+Advanced IdService
 
-## Coding: MongoDB
+* Create an IdService class with a method `public String randomId()`. This method should use the UUID class to generate a random id.
+* Use dependency injection in the AsterixService to inject the IdService class and generate an id when creating new characters.
 
-Now let the AsterixController load the characters from a MongoDB database.
+## Bonus: Query
 
-> ⚠️ Attention: Make sure to set your AtlasDB URL as an environment variable so that your password doesn't end up on GitHub!
+If not done yesterday, follow the following steps in order:
 
-> ⚠️ Attention: The name of the database collection MUST match the name of the record, but start with a lowercase letter! For example, if your entity is a record called "AsterixCharacter", then the MongoDB collection must be named "asterixCharacter"!
+* Step 1: Add a query parameter `age` to your getAllCharacter endpoint.
+* Step 2: Filter all characters that have a maximum age based on this parameter. (First load all characters from the database and use familiar Java methods for filtering)
+* Step 3: Look at Generated Query Methods and use them to directly load the filtered characters from the database. (Only read section 3)
 
-Manually write the character data into the database beforehand (using Compass). Tip: You can use ChatGPT to convert the data to JSON.
 
-Feel free to use the [example code from the lecture](https://github.com/bartfastiel/spring-data) as a template. Remember the things you need:
-* The Maven dependency for Spring Data MongoDB
-* A repository interface that implements `MongoRepository<CharacterRecord, String>`
-* The MongoDB URL (from environment variable) and the database name in `application.properties`
-* The environment variable `MONGODB_URI` with the launch configuration in IntelliJ
+## Bonus: DTO
 
-If you make a change to a character in AtlasDB (via Compass), you should be able to receive the updated data in Postman.
-
-## Bonus: Create, Update, and Delete
-
-Extend the AsterixController to also support POST, PUT, and DELETE.
-
-## Bonus: Swagger SpringDoc
-
-Add this dependency to your project:
-
-```xml
-		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-			<version>2.2.0</version>
-		</dependency>
-```
-
-After restarting the Spring Boot application, navigate to http://localhost:8080/swagger-ui/index.html
-
-You should now see documentation of your API.
-
-## Bonus: Custom Queries
-
-Add another endpoint that returns the average age of the characters of a profession using a custom query.
+* Create a DTO for the PUT endpoint so that the client cannot change the Id of an existing character.
 
 ## Bonus: Villages, Pets, Weapons
 
